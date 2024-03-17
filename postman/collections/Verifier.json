@@ -1,0 +1,757 @@
+{
+	"info": {
+		"_postman_id": "8d015420-d935-4f07-bfce-7264c1735e2d",
+		"name": "Verifier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "27197013-8d015420-d935-4f07-bfce-7264c1735e2d"
+	},
+	"item": [
+		{
+			"name": "Registration of new user",
+			"item": [
+				{
+					"name": "Registration of a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "246b86fa-3456-417d-909e-63b2328a6009",
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response Content-Type header is text/xml\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/xml\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.exist.and.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is in a valid XML format\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.not.be.null;\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Null value is handled appropriately in the response\", function () {\r",
+									"    const responseData = xml2Json(pm.response.text());\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.null;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e3b56c40-0b4e-43ac-91ed-6c4c5a139cc1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"login\": \"tester123\",\r\n  \"firstName\": \"ivan\",\r\n  \"lastName\": \"ivanov\",\r\n  \"email\": \"kulshaev+124@gmail.com\",\r\n  \"imageUrl\": \"string\",\r\n  \"activated\": true,\r\n  \"langKey\": \"en\",\r\n  \"createdBy\": \"string\",\r\n  \"createdDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"lastModifiedBy\": \"string\",\r\n  \"lastModifiedDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"authorities\": [\r\n    \"string\"\r\n  ],\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/register",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration of a new user without body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb9666ec-750c-46cd-b521-dd50d4228ff0",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "55ab1529-4624-4455-bbb8-6e54df64089d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https%3A%2F%2Fsqlverifier-live-6e21ca0ed768.herokuapp.com%2Fapi/register",
+							"host": [
+								"https%3A%2F%2Fsqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com%2Fapi"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration of a new user without login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ccd05918-ae91-44ef-9a92-89f25f330ea0",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "463a0a19-8279-4ee9-8177-a1f443a682d8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"login\": \"\",\r\n  \"firstName\": \"ivan\",\r\n  \"lastName\": \"ivanov\",\r\n  \"email\": \"kulshaev+124@gmail.com\",\r\n  \"imageUrl\": \"string\",\r\n  \"activated\": true,\r\n  \"langKey\": \"en\",\r\n  \"createdBy\": \"string\",\r\n  \"createdDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"lastModifiedBy\": \"string\",\r\n  \"lastModifiedDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"authorities\": [\r\n    \"string\"\r\n  ],\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Verifier http}}/api/register",
+							"host": [
+								"{{Verifier http}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "f3e5d25d-7a7a-42fd-b240-23ba435cbfda"
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Authorization of a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88d79917-a4f3-4fe6-98de-96fffd52ac2a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "c4e46d05-c9fe-42a1-b597-f00652c2e072",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl9hdXRvbWF0aW9uIiwiZXhwIjoxNzEwMTk1NzAxLCJhdXRoIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcxMDEwOTMwMX0.kCCbhpt11oKDw2kEbBm9yW9mUWEMV8iYj9Xx_s-TheG-JC5GYZ3qDouf3t_YPxHV2EOVB7Ch4AiTTD_3a_D3tw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"login\": \"tester123\",\r\n  \"firstName\": \"ivan\",\r\n  \"lastName\": \"ivanov\",\r\n  \"email\": \"kulshaev+124@gmail.com\",\r\n  \"imageUrl\": \"string\",\r\n  \"activated\": true,\r\n  \"langKey\": \"en\",\r\n  \"createdBy\": \"string\",\r\n  \"createdDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"lastModifiedBy\": \"string\",\r\n  \"lastModifiedDate\": \"2024-03-11T03:07:29.336Z\",\r\n  \"authorities\": [\r\n    \"string\"\r\n  ],\r\n  \"password\": \"123456\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/account",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Getting a login of a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4cc86fb2-fc3c-44d2-9310-d0cd32e9b33f",
+								"exec": [
+									"let requestBody = pm.request.body;",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.environment.set(\"username\", requestBody.login);",
+									"pm.environment.set(\"useremail\", requestBody.email);",
+									"pm.test(\"Status code is 415\", function () {",
+									"    pm.response.to.have.status(415);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "a53ab370-ea5e-42f2-9b02-0938df6582f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "{{",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "\"id\"",
+									"value": " 0,",
+									"type": "text"
+								},
+								{
+									"key": "\"login\"",
+									"value": " \"tester123\",",
+									"type": "text"
+								},
+								{
+									"key": "\"firstName\"",
+									"value": " \"ivan\",",
+									"type": "text"
+								},
+								{
+									"key": "\"lastName\"",
+									"value": " \"ivanov\",",
+									"type": "text"
+								},
+								{
+									"key": "\"email\"",
+									"value": " \"kulshaev+124@gmail.com\",",
+									"type": "text"
+								},
+								{
+									"key": "\"imageUrl\"",
+									"value": " \"string\",",
+									"type": "text"
+								},
+								{
+									"key": "\"activated\"",
+									"value": " true,",
+									"type": "text"
+								},
+								{
+									"key": "\"langKey\"",
+									"value": " \"en\",",
+									"type": "text"
+								},
+								{
+									"key": "\"createdBy\"",
+									"value": " \"string\",",
+									"type": "text"
+								},
+								{
+									"key": "\"createdDate\"",
+									"value": " \"2024-03-11T03:07:29.336Z\",",
+									"type": "text"
+								},
+								{
+									"key": "\"lastModifiedBy\"",
+									"value": " \"string\",",
+									"type": "text"
+								},
+								{
+									"key": "\"lastModifiedDate\"",
+									"value": " \"2024-03-11T03:07:29.336Z\",",
+									"type": "text"
+								},
+								{
+									"key": "\"authorities\"",
+									"value": " [",
+									"type": "text"
+								},
+								{
+									"key": "\"string\"",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "],",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "\"password\"",
+									"value": " \"123456\"",
+									"type": "text"
+								},
+								{
+									"key": "}",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/register",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "45f32019-d2fa-46ed-af98-2cde62b82709"
+		},
+		{
+			"name": "Task management",
+			"item": [
+				{
+					"name": "Task creation",
+					"item": [
+						{
+							"name": "Getting token of user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "74c76501-7e18-48e2-99e4-551d60f2ac69",
+										"exec": [
+											"pm.environment.set(\"id_token\", pm.response.json().id_token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "a9ecf913-8ff2-43f5-b60c-0c83ea263d87",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"tester2\",\r\n  \"password\": \"Aliska1!\",\r\n  \"rememberMe\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/authenticate",
+									"protocol": "https",
+									"host": [
+										"sqlverifier-live-6e21ca0ed768",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"api",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "905d1f62-0fc1-48ad-91bc-bf91312a83ac"
+				}
+			],
+			"id": "8614301e-795e-4459-a0f8-ddf09ed116f2"
+		},
+		{
+			"name": "HW 421",
+			"item": [
+				{
+					"name": "User task",
+					"id": "5680c207-0a49-4422-9836-a00aae32e8a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/user-tasks?page=0&size=20",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user-tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aaefa73e-c194-4f91-aa62-ef48b395e09b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");\r",
+									"});\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "4cf8dfde-6b34-4d43-b348-b03c87792471",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/tasks?page=0&size=20",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "831b2559-0f67-4a06-a3af-c37e42c136be",
+								"exec": [
+									"{\r",
+									"  \"id\": 0,\r",
+									"  \"isSolved\": true,\r",
+									"  \"user\": {\r",
+									"    \"id\": 2233,\r",
+									"    \"login\": \"string\",\r",
+									"    \"firstName\": \"string\",\r",
+									"    \"lastName\": \"string\",\r",
+									"    \"email\": \"string\",\r",
+									"    \"activated\": true,\r",
+									"    \"langKey\": \"string\",\r",
+									"    \"imageUrl\": \"string\",\r",
+									"    \"resetDate\": \"2024-03-12T04:35:49.897Z\"\r",
+									"  },\r",
+									"  \"task\": {\r",
+									"    \"id\": 0,\r",
+									"    \"text\": \"string\",\r",
+									"    \"answer\": \"string\",\r",
+									"    \"title\": \"string\"\r",
+									"  }\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "d59b36a3-10a2-43a3-9d4c-c0a1765174d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"isSolved\": true,\r\n    \"user\": {\r\n        \"id\": 0,\r\n        \"login\": \"string\",\r\n        \"firstName\": \"string\",\r\n        \"lastName\": \"string\",\r\n        \"email\": \"string\",\r\n        \"activated\": true,\r\n        \"langKey\": \"string\",\r\n        \"imageUrl\": \"string\",\r\n        \"resetDate\": \"2024-03-12T04:35:49.897Z\"\r\n    },\r\n    \"task\": {\r\n        \"id\": 0,\r\n        \"text\": \"string\",\r\n        \"answer\": \"string\",\r\n        \"title\": \"string\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "'https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/user-tasks' ",
+							"protocol": "'https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"user-tasks' "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b30f9a30-4ea5-4ca3-bf1f-a7a566dc5590",
+								"exec": [
+									"pm.environment.set(\"variable_key\", \"variable_value\");\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "df686fec-60f6-4c60-9ef9-683a17023645",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/tasks?page=0&size=20",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47466074-4a03-443b-91b5-50eb75907d46",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.value).to.eql(100);\r",
+									"});\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "a032cea5-1e8d-44fe-ba9e-32d069730756",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/tasks",
+							"protocol": "https",
+							"host": [
+								"sqlverifier-live-6e21ca0ed768",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "2fe6b2e5-6a26-4fc0-8b14-610eb0bb9afb"
+		}
+	],
+	"variable": [
+		{
+			"id": "226af90c-0dad-4bf5-8c60-df5c403f3cc6",
+			"key": "Verifier http",
+			"value": "https://sqlverifier-live-6e21ca0ed768.herokuapp.com"
+		}
+	]
+}
