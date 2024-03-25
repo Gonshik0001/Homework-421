@@ -1,6 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
 name: CI
+name: Run nightly script
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Запуск каждую ночь в 00:00
+
 
 # Controls when the workflow will run
 on:
